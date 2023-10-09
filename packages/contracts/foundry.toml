@@ -1,0 +1,15 @@
+[profile.default]
+src = 'src'
+test = 'test'
+out = 'out'
+libs = ['lib']
+solc = '0.8.10'
+eth_rpc_url = "http://localhost:8545"
+
+[profile.base]
+eth_rpc_url = "https://mainnet.base.org"
+
+[profile.base-goerli]
+eth_rpc_url = "https://goerli.base.org"
+
+# See more config options https://github.com/foundry-rs/foundry/tree/master/config

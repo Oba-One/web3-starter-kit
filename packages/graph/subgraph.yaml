@@ -1,0 +1,81 @@
+specVersion: 0.0.5
+description: Dapp Subgraph for querying data
+schema:
+  file: ./schema.graphql
+features:
+  - fullTextSearch
+  - nonFatalErrors
+dataSources:
+  - name: SynthRegistry
+    kind: ethereum
+    network: base-testnet
+    source:
+      address: "0x935D99dC0f48f28794f13d4135d5Fe22A19ccE4c"
+      abi: SynthRegistry
+      startBlock: 10349571
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - AdminChanged
+        - BeaconUpgraded
+        - OwnershipTransferred
+        - Paused
+        - SynthCreated
+        - Unpaused
+        - Upgraded
+      abis:
+        - name: SynthRegistry
+          file: ../contracts/out/SynthRegistry.sol/SynthRegistry.json
+      eventHandlers:
+        - event: AdminChanged(address,address)
+          handler: handleAdminChanged
+        - event: BeaconUpgraded(indexed address)
+          handler: handleBeaconUpgraded
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Paused(address)
+          handler: handlePaused
+        - event: SynthCreated(bool,indexed address,indexed address,indexed address,string,string)
+          handler: handleSynthCreated
+        - event: Unpaused(address)
+          handler: handleUnpaused
+        - event: Upgraded(indexed address)
+          handler: handleUpgraded
+      file: ./src/synth-registry.ts
+templates:
+  - name: Synth
+    kind: ethereum/contract
+    network: base-testnet
+    source:
+      abi: Synth
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/synth.ts
+      entities:
+        - SynthMinted
+        - WaveAdded
+        - WaveRemoved
+      abis:
+        - name: Synth
+          file: ../contracts/out/Synth.sol/Synth.json
+      eventHandlers:
+        - event: SynthMinted(indexed address,indexed address,indexed address,uint256)
+          handler: handleSynthMinted
+        - event: WaveAdded(indexed address)
+          handler: handleWaveAdded
+        - event: WaveRemoved(indexed address)
+          handler: handleWaveRemoved
+        - event: ArtWhitelistAdded(indexed address)
+          handler: handleWhitelistArtAdded
+        - event: ArtWhitelistRemoved(indexed address)
+          handler: handleWhitelistArtRemoved
+        - event: NFTWhitelistAdded(indexed address)
+          handler: handleWhitelistNftAdded
+        - event: NFTWhitelistRemoved(indexed address)
+          handler: handleWhitelistNftRemoved
+        - event: NFTOwnershipToMintSet(indexed bool)
+          handler: handleNftOwnershipToMintUpdated

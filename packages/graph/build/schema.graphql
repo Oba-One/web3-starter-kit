@@ -1,0 +1,203 @@
+# @fulltext(
+#   name: "querySynthNFTsByOrganizer"
+#   language: en
+#   algorithm: rank
+#   include: [{ entity: "SynthNFT", fields: [{ name: "organizer" }] }]
+# )
+# @fulltext(
+#   name: "querySynthNFTsByArtist"
+#   language: en
+#   algorithm: rank
+#   include: [{ entity: "SynthNFT", fields: [{ name: "artist" }] }]
+# )
+# @fulltext(
+#   name: "queryWaveNFTsByArtist"
+#   language: en
+#   algorithm: rank
+#   include: [{ entity: "WaveNFT", fields: [{ name: "artist" }] }]
+# )
+# @fulltext(
+#   name: "queryWaveNFTsByCreative"
+#   language: en
+#   algorithm: rank
+#   include: [{ entity: "WaveNFT", fields: [{ name: "creative" }] }]
+# )
+# type _Schema_
+#   @fulltext(
+#     name: "querySynthsByOwner"
+#     language: en
+#     algorithm: rank
+#     include: [{ entity: "Synth", fields: [{ name: "owner" }] }]
+#   )
+# @fulltext(
+#   name: "queryWavesByOwner"
+#   language: en
+#   algorithm: rank
+#   include: [{ entity: "Wave", fields: [{ name: "owner" }] }]
+# )
+
+# WAVES TYPES
+type SynthWaveNFT @entity(immutable: true) {
+  id: Bytes! # Set to `waveNft.id.concat(synthNft.id)`
+  synthNft: SynthNFT! # SynthNFT id
+  waveNft: WaveNFT! # WaveNFT id
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SynthNFT @entity {
+  id: Bytes! # address
+  nftOwnershipRequired: Boolean! # bool
+  # contract: Bytes!
+  artist: Bytes! # address
+  organizer: Bytes! # address
+  name: String! # string
+  metadata: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+
+  artWhitelist: [Bytes!]! # addresses
+  nftWhitelist: [Bytes!]! # addresses
+  waveNFTs: [SynthWaveNFT!]! @derivedFrom(field: "synthNft")
+}
+
+type WaveNFT @entity {
+  id: Bytes! # address
+  # contract: Bytes!
+  startTime: BigInt! # uint256
+  duration: BigInt! # uint256
+  artist: Bytes! # address
+  creative: Bytes! # address
+  name: String! # string
+  data: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+
+  synthNfts: [SynthWaveNFT!]! @derivedFrom(field: "waveNft")
+}
+
+type SynthWave @entity(immutable: true) {
+  id: Bytes! # Set to `wave.id.concat(synth.id)`
+  synth: Synth! # Synth
+  wave: Wave! # Wave
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Synth @entity {
+  id: Bytes! # address
+  owner: Bytes! # address
+  # account: Bytes!
+  contract: Bytes! # address
+  tokenId: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+
+  waves: [SynthWave!]! @derivedFrom(field: "synth")
+}
+
+type Wave @entity {
+  id: Bytes!
+  owner: Bytes! # address
+  contract: Bytes! # address
+  tokenId: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+
+  synths: [SynthWave!]! @derivedFrom(field: "wave")
+}
+
+enum OrderTypeEnum {
+  Print
+  Pallette
+}
+
+enum OrderGoodEnum {
+  SHIRT
+  HOODIE
+  HAT
+  DASHIKI
+  PANTS
+  BLANKET
+  POSTER
+  MARKER
+  CRAYON
+  PENCIL
+}
+
+type Order @entity(immutable: true) {
+  id: Bytes! # Set to `order.id,toBytes()
+  buyer: Bytes! # address
+  art: Bytes! # address
+  artTokenId: BigInt!
+  orderId: BigInt!
+  synth: Synth! # Synth
+  type: OrderTypeEnum! # OrderType
+  good: OrderGoodEnum # OrderGood
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+# REGISTRY TYPES
+type AdminChanged @entity(immutable: true) {
+  id: Bytes!
+  contract: Bytes! # address
+  previousAdmin: Bytes! # address
+  newAdmin: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
+  contract: Bytes! # address
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Upgraded @entity(immutable: true) {
+  id: Bytes!
+  contract: Bytes! # address
+  implementation: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type BeaconUpgraded @entity(immutable: true) {
+  id: Bytes!
+  contract: Bytes! # address
+  beacon: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Paused @entity(immutable: true) {
+  id: Bytes!
+  contract: Bytes! # address
+  account: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Unpaused @entity(immutable: true) {
+  id: Bytes!
+  contract: Bytes! # address
+  account: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

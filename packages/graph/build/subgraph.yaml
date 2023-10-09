@@ -1,0 +1,163 @@
+specVersion: 0.0.5
+description: Waves Subgraph for querying Synth and Wave data
+schema:
+  file: schema.graphql
+features:
+  - fullTextSearch
+  - nonFatalErrors
+dataSources:
+  - name: SynthRegistry
+    kind: ethereum
+    network: base-testnet
+    source:
+      address: "0x935D99dC0f48f28794f13d4135d5Fe22A19ccE4c"
+      abi: SynthRegistry
+      startBlock: 10349571
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - AdminChanged
+        - BeaconUpgraded
+        - OwnershipTransferred
+        - Paused
+        - SynthCreated
+        - Unpaused
+        - Upgraded
+      abis:
+        - name: SynthRegistry
+          file: contracts/out/SynthRegistry.sol/SynthRegistry.json
+      eventHandlers:
+        - event: AdminChanged(address,address)
+          handler: handleAdminChanged
+        - event: BeaconUpgraded(indexed address)
+          handler: handleBeaconUpgraded
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Paused(address)
+          handler: handlePaused
+        - event: SynthCreated(bool,indexed address,indexed address,indexed address,string,string)
+          handler: handleSynthCreated
+        - event: Unpaused(address)
+          handler: handleUnpaused
+        - event: Upgraded(indexed address)
+          handler: handleUpgraded
+      file: SynthRegistry/SynthRegistry.wasm
+  - name: WaveRegistry
+    kind: ethereum
+    network: base-testnet
+    source:
+      address: "0xd82e2a831315882D9a13B5780e2BDC4e64976AD5"
+      abi: WaveRegistry
+      startBlock: 10349571
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - AdminChanged
+        - BeaconUpgraded
+        - OwnershipTransferred
+        - Paused
+        - Unpaused
+        - Upgraded
+        - WaveCreated
+      abis:
+        - name: WaveRegistry
+          file: contracts/out/WaveRegistry.sol/WaveRegistry.json
+      eventHandlers:
+        - event: AdminChanged(address,address)
+          handler: handleAdminChanged
+        - event: BeaconUpgraded(indexed address)
+          handler: handleBeaconUpgraded
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Paused(address)
+          handler: handlePaused
+        - event: Unpaused(address)
+          handler: handleUnpaused
+        - event: Upgraded(indexed address)
+          handler: handleUpgraded
+        - event: WaveCreated(uint256,uint256,indexed address,indexed address,indexed
+            address,string,string)
+          handler: handleWaveCreated
+      file: WaveRegistry/WaveRegistry.wasm
+templates:
+  - name: Synth
+    kind: ethereum/contract
+    network: base-testnet
+    source:
+      abi: Synth
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: templates/Synth/Synth.wasm
+      entities:
+        - SynthMinted
+        - WaveAdded
+        - WaveRemoved
+      abis:
+        - name: Synth
+          file: contracts/out/Synth.sol/Synth.json
+      eventHandlers:
+        - event: SynthMinted(indexed address,indexed address,indexed address,uint256)
+          handler: handleSynthMinted
+        - event: WaveAdded(indexed address)
+          handler: handleWaveAdded
+        - event: WaveRemoved(indexed address)
+          handler: handleWaveRemoved
+        - event: ArtWhitelistAdded(indexed address)
+          handler: handleWhitelistArtAdded
+        - event: ArtWhitelistRemoved(indexed address)
+          handler: handleWhitelistArtRemoved
+        - event: NFTWhitelistAdded(indexed address)
+          handler: handleWhitelistNftAdded
+        - event: NFTWhitelistRemoved(indexed address)
+          handler: handleWhitelistNftRemoved
+        - event: NFTOwnershipToMintSet(indexed bool)
+          handler: handleNftOwnershipToMintUpdated
+  - name: SynthAccount
+    kind: ethereum/contract
+    network: base-testnet
+    source:
+      abi: SynthAccount
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: templates/SynthAccount/SynthAccount.wasm
+      entities:
+        - PrintPurchased
+        - PalettePurchased
+      abis:
+        - name: SynthAccount
+          file: contracts/out/SynthAccount.sol/SynthAccount.json
+      eventHandlers:
+        - event: PrintPurchased(indexed address,address,indexed uint256,indexed uint256,uint8)
+          handler: handlePrintPurchased
+        - event: PalettePurchased(indexed address,address,indexed uint256,indexed uint256,uint8)
+          handler: handlePalettePurchased
+  - name: Wave
+    kind: ethereum/contract
+    network: base-testnet
+    source:
+      abi: Wave
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: templates/Wave/Wave.wasm
+      entities:
+        - WaveMinted
+      abis:
+        - name: Wave
+          file: contracts/out/Wave.sol/Wave.json
+      eventHandlers:
+        - event: WaveMinted(indexed address,indexed address,indexed uint256)
+          handler: handleWaveMinted
+        - event: StartTimeUpdated(indexed uint256)
+          handler: handleStartTimeUpdated
+        - event: DurationUpdated(indexed uint256)
+          handler: handleDurationUpdated
