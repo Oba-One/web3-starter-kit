@@ -23,8 +23,13 @@ build
 .env
 
 # forge
+out/
+cache/
+cache_hardhat/
+node_modules/
+bindings/
+artifacts/
 
-out
-cache
-cache_hardhat
-artifacts
+# Ignore MUD deploy artifacts
+deploys/**/*.json
+
