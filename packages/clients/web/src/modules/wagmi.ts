@@ -1,12 +1,12 @@
-import { baseGoerli, foundry } from "wagmi/chains";
 import { createConfig, configureChains } from "wagmi";
+import { base, baseGoerli, foundry } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 
 const chainConfig = configureChains(
-  [baseGoerli, foundry],
+  [base, baseGoerli, foundry],
   [
-    alchemyProvider({ apiKey: import.meta.env.VITE_ALCHEMY_API_KEY! }),
+    alchemyProvider({ apiKey: process.env.VITE_ALCHEMY_API_KEY! }),
     jsonRpcProvider({
       rpc: (chain) => {
         if (chain.id === foundry.id) {

@@ -6,20 +6,6 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "Azedo";
-  src: url("/fonts/Azedo-Light.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Azedo";
-  src: url("/fonts/Azedo-Bold.otf") format("opentype");
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
   font-family: "Euclid Circular A";
   src: url("/fonts/Euclid-Circular-Light.ttf") format("truetype");
   font-weight: 300;

@@ -1,18 +1,18 @@
 specVersion: 0.0.5
-description: Dapp Subgraph for querying data
-schema:
-  file: ./schema.graphql
+description: Dapp subgraph for querying data
 features:
   - fullTextSearch
   - nonFatalErrors
+schema:
+  file: ./schema.graphql
 dataSources:
-  - name: SynthRegistry
-    kind: ethereum
+  - kind: ethereum
+    name: Contract
     network: base-testnet
     source:
       address: "0x935D99dC0f48f28794f13d4135d5Fe22A19ccE4c"
-      abi: SynthRegistry
-      startBlock: 10349571
+      abi: Contract
+      startBlock: 10351334
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -20,62 +20,15 @@ dataSources:
       entities:
         - AdminChanged
         - BeaconUpgraded
-        - OwnershipTransferred
-        - Paused
-        - SynthCreated
-        - Unpaused
         - Upgraded
       abis:
-        - name: SynthRegistry
-          file: ../contracts/out/SynthRegistry.sol/SynthRegistry.json
+        - name: Contract
+          file: ./abis/Contract.json
       eventHandlers:
         - event: AdminChanged(address,address)
           handler: handleAdminChanged
         - event: BeaconUpgraded(indexed address)
           handler: handleBeaconUpgraded
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
-        - event: Paused(address)
-          handler: handlePaused
-        - event: SynthCreated(bool,indexed address,indexed address,indexed address,string,string)
-          handler: handleSynthCreated
-        - event: Unpaused(address)
-          handler: handleUnpaused
         - event: Upgraded(indexed address)
           handler: handleUpgraded
-      file: ./src/synth-registry.ts
-templates:
-  - name: Synth
-    kind: ethereum/contract
-    network: base-testnet
-    source:
-      abi: Synth
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.7
-      language: wasm/assemblyscript
-      file: ./src/synth.ts
-      entities:
-        - SynthMinted
-        - WaveAdded
-        - WaveRemoved
-      abis:
-        - name: Synth
-          file: ../contracts/out/Synth.sol/Synth.json
-      eventHandlers:
-        - event: SynthMinted(indexed address,indexed address,indexed address,uint256)
-          handler: handleSynthMinted
-        - event: WaveAdded(indexed address)
-          handler: handleWaveAdded
-        - event: WaveRemoved(indexed address)
-          handler: handleWaveRemoved
-        - event: ArtWhitelistAdded(indexed address)
-          handler: handleWhitelistArtAdded
-        - event: ArtWhitelistRemoved(indexed address)
-          handler: handleWhitelistArtRemoved
-        - event: NFTWhitelistAdded(indexed address)
-          handler: handleWhitelistNftAdded
-        - event: NFTWhitelistRemoved(indexed address)
-          handler: handleWhitelistNftRemoved
-        - event: NFTOwnershipToMintSet(indexed bool)
-          handler: handleNftOwnershipToMintUpdated
+      file: ./src/contract.ts

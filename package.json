@@ -2,6 +2,22 @@
   "name": "web3-starter-kit",
   "version": "0.0.0",
   "private": true,
+  "keywords": [
+    "web3",
+    "starter",
+    "kit",
+    "dapp",
+    "ethereum",
+    "solidity",
+    "hardhat",
+    "react",
+    "next",
+    "typescript",
+    "pnpm",
+    "foundry",
+    "lattice",
+    "latticexyz"
+  ],
   "workspaces": {
     "packages": [
       "packages/*",

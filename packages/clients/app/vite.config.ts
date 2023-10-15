@@ -40,7 +40,6 @@ export default defineConfig({
         "assets/favicon.ico",
         "assets/logo-64.png",
         "assets/logo-310.png",
-        "assets/waves.png",
         "assets/world.png",
         "assets/profile.png",
       ],
@@ -76,16 +75,16 @@ export default defineConfig({
         scope: "/",
         display: "fullscreen",
         orientation: "portrait-primary",
-        theme_color: "#e9e3dd",
-        background_color: "#191c1c",
+        theme_color: "#fff",
+        background_color: "#000",
         shortcuts: [
           {
-            name: "Synths",
-            description: "View your synths and waves",
-            url: "/synths",
+            name: "Profile",
+            description: "View your profile",
+            url: "/profile",
             icons: [
               {
-                src: "assets/waves.png",
+                src: "assets/profile.png",
                 sizes: "64x64",
                 type: "image/png",
               },
@@ -95,7 +94,7 @@ export default defineConfig({
         related_applications: [
           {
             platform: "webapp",
-            url: "https://localhost:3002/manifest.webmanifest",
+            url: "https://localhost:3001/manifest.webmanifest",
           },
         ],
         categories: [],
@@ -103,6 +102,6 @@ export default defineConfig({
     }),
   ],
   server: {
-    port: 3002,
+    port: 3001,
   },
 });

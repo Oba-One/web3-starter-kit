@@ -11,8 +11,8 @@ const url =
   "https://house.us21.list-manage.com/subscribe/post-json?u=f9cd12d07ddbdbe80d68c3e28&amp;id=792284a5e1&amp&c=1;f_id=00ddeae6f0";
 
 export const OnlyMobile: React.FC = () => {
-  const [subscribeState, setSubscribeState] = useState<SubscribeState>("idle");
-  const [subscribeError, setSubscribeError] = useState<string | null>(null);
+  const [, setSubscribeState] = useState<SubscribeState>("idle");
+  const [, setSubscribeError] = useState<string | null>(null);
 
   const contentSpring = useSpring({
     from: { opacity: 0 },
@@ -71,14 +71,14 @@ export const OnlyMobile: React.FC = () => {
     <a.div className="grid place-items-center w-screen h-screen text-center z-10">
       <a.div style={contentSpring} className="flex flex-col gap-12">
         <div className="justify-self-start flex flex-col gap-2">
-          <h1 className="text-9xl font-bold leading-[6rem]">WAVES</h1>
+          <h1 className="text-9xl font-bold leading-[6rem]">Web3</h1>
           <p className="text-4xl tracking-wider">
             Connecting Generative Art & Culture
           </p>
         </div>
         <p className="text-2xl font-normal tracking-wide">
-          📲 Visit <span className="font-bold">app.waves.house</span> on phone
-          to install app
+          📲 Visit <span className="font-bold">web3.app</span> on phone to
+          install app
         </p>
         <form
           onSubmit={handleSubscribe}

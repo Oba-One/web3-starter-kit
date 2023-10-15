@@ -30,7 +30,7 @@ const server = express();
 
 // const redisStore = new RedisStore({
 //   client: redisClient,
-//   prefix: "waves:",
+//   prefix: "web3:",
 // });
 
 // Middleware
@@ -39,7 +39,7 @@ server.use(cors({})); // Adjust the "origin" option as needed
 server.use(helmet({}));
 server.use(
   session({
-    name: "waves_cookie",
+    name: "web3_cookie",
     secret: `${process.env.SESSION_SECRET ?? "issa a secret with minimum length of 32 characters"}}`,
     resave: false,
     saveUninitialized: true,
@@ -48,7 +48,7 @@ server.use(
     //   secure: true,
     //   sameSite: true,
     // },
-  })
+  }),
 );
 
 // Router

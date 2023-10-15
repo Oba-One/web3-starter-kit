@@ -17,6 +17,8 @@ export const Profile: React.FC<ProfileProps> = ({
   login,
   logout,
   error,
+  wallets,
+  ready,
 }) => {
   const web3Props = {
     address,
@@ -25,6 +27,8 @@ export const Profile: React.FC<ProfileProps> = ({
     login,
     logout,
     error,
+    wallets,
+    ready,
   };
 
   return (

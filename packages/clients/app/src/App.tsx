@@ -1,9 +1,7 @@
+import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { useHuddle01 } from "@huddle01/react";
 
-import { WaveProvider } from "./hooks/wave/useWave";
-import { SynthProvider } from "./hooks/synth/useSynth";
-import { WavesProvider } from "./hooks/providers/waves";
 import { usePWA, InstallState } from "./hooks/providers/pwa";
 
 import { Appbar } from "./components/Layout/AppBar";
@@ -12,7 +10,6 @@ import { OnlyMobile } from "./components/Layout/OnlyMobile";
 import { CircleLoader } from "./components/Loader/Circle";
 
 import Views from "./views";
-import { useEffect } from "react";
 
 export function App() {
   const { initialize } = useHuddle01();
@@ -38,26 +35,15 @@ export function App() {
   }, []);
 
   return (
-    <WavesProvider>
-      <SynthProvider>
-        <WaveProvider>
-          {Onboard[installState]}
-          {installState !== "unsupported" && (
-            <>
-              <Appbar />
-              <Views />
-            </>
-          )}
-          <Toaster
-          // toastOptions={{
-          //   style: {
-          //     background: "#333",
-          //     color: "#fff",
-          //   },
-          // }}
-          />
-        </WaveProvider>
-      </SynthProvider>
-    </WavesProvider>
+    <>
+      {Onboard[installState]}
+      {installState !== "unsupported" && (
+        <>
+          <Appbar />
+          <Views />
+        </>
+      )}
+      <Toaster />
+    </>
   );
 }

@@ -1,14 +1,13 @@
 import { a, useTransition } from "@react-spring/web";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
-import { useSynths } from "../hooks/views/useSynths";
+import { useHome } from "../hooks/views/useHome";
 import { useExplore } from "../hooks/views/useExplore";
 import { useProfile } from "../hooks/views/useProfile";
 
-import Synths from "./Synths";
+import Home from "./Home";
 import Explore from "./Explore";
 import Profile from "./Profile";
-import { SynthsViewer } from "../components/Synths/Viewer";
 
 export default function Views() {
   const location = useLocation();
@@ -24,7 +23,7 @@ export default function Views() {
     },
   });
 
-  const synths = useSynths();
+  const home = useHome();
   const explore = useExplore();
   const profile = useProfile();
 
@@ -34,23 +33,7 @@ export default function Views() {
       style={style}
     >
       <Routes location={location}>
-        <Route path="synths" element={<Synths {...synths} />}>
-          <Route
-            path=":address"
-            element={
-              <SynthsViewer
-                synths={synths.synths}
-                synthNfts={synths.synthNfts}
-                synthWavesMap={synths.synthWavesMap}
-                // waveNftMap={synths.waveNftMap}
-                waveTokenMap={synths.waveTokenMap}
-                fetchSynths={synths.fetchSynths}
-                fetchSynthNfts={synths.fetchSynthNfts}
-                // fetchWaveNfts={synths.fetchWaveNfts}
-              />
-            }
-          />
-        </Route>
+        <Route path="home" element={<Home {...home} />} />
         <Route path="explore" element={<Explore {...explore} />} />
         <Route path="profile" element={<Profile {...profile} />} />
         <Route path="*" element={<Navigate to="profile" />} />

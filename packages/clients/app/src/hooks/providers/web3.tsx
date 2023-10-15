@@ -1,12 +1,7 @@
-import {
-  useAccount,
-  useChainId,
-  useDisconnect,
-  useSignMessage,
-} from "wagmi";
+import { useAccount, useChainId, useDisconnect, useSignMessage } from "wagmi";
 import { SiweMessage } from "siwe";
-import { usePrivyWagmi } from '@privy-io/wagmi-connector';
-import { ConnectedWallet, useLogin, useWallets, useLogout, usePrivy,  } from '@privy-io/react-auth';
+import { usePrivyWagmi } from "@privy-io/wagmi-connector";
+import { ConnectedWallet, useWallets, usePrivy } from "@privy-io/react-auth";
 import { createContext, useContext, useEffect, useState } from "react";
 
 import { apiClient } from "../../modules/axios";
@@ -22,7 +17,7 @@ export interface Web3Props {
   ready: boolean;
   address?: `0x${string}`;
   activeWallet?: ConnectedWallet;
-  wallets: ConnectedWallet[]
+  wallets: ConnectedWallet[];
   handleConnect: () => Promise<void>;
   signMessage: (message: string) => Promise<string | void>;
   login: () => Promise<void>;
@@ -58,7 +53,6 @@ export const Web3Provider = ({ children }: Props) => {
 
   if (currentValue) throw new Error("AppProvider can only be used once");
 
-
   const [authenticating, setAuthenticating] = useState(false);
 
   const chainId = useChainId();
@@ -67,15 +61,14 @@ export const Web3Provider = ({ children }: Props) => {
   const { signMessageAsync } = useSignMessage();
 
   const { wallets } = useWallets();
-  const {login: privyLogin, ready, authenticated } = usePrivy();
-  const { wallet: activeWallet} = usePrivyWagmi();
-
+  const { login: privyLogin, ready, authenticated } = usePrivy();
+  const { wallet: activeWallet } = usePrivyWagmi();
 
   const [error, setError] = useState<null | string>(null);
 
   async function handleConnect(): Promise<void> {
     try {
-      privyLogin()
+      privyLogin();
       setError(null);
     } catch (err: any) {
       err && err.message && setError(err.message);
@@ -103,7 +96,6 @@ export const Web3Provider = ({ children }: Props) => {
       setAuthenticating(true);
       setError(null);
 
-
       if (!address) {
         handleConnect();
         setAuthenticating(false);
@@ -117,7 +109,7 @@ export const Web3Provider = ({ children }: Props) => {
 
       const message = await createSiweMessage(
         address,
-        "Enter WAVES",
+        "Enter Web3 App",
         nonceRes.data.nonce,
         chainId,
       );

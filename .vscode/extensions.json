@@ -5,7 +5,7 @@
   // List of extensions which should be recommended for users of this workspace.
   "recommendations": [
     "esbenp.prettier-vscode",
-    "juanblanco.solidity",
+    "JuanBlanco.solidity",
     "stately.xstate-vscode",
     "styledcomponents.vscode-styled-components",
     "tailwindlabs.tailwind-css-intellisense",

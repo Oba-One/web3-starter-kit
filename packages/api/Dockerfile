@@ -4,7 +4,7 @@ FROM node:18-alpine as builder
 WORKDIR /app
 
 COPY package*.json ./
-RUN yarn install --frozen-lockfile
+RUN npm install --frozen-lockfile
 
 COPY ./src src
 
@@ -14,7 +14,7 @@ WORKDIR /app
 ENV NODE_ENV production
 
 COPY package*.json ./
-RUN yarn install --frozen-lockfile --prod
+RUN npm install --frozen-lockfile --prod
 
 COPY --chown=node:node --from=builder /app/src /app/src
 
@@ -22,4 +22,4 @@ COPY --chown=node:node --from=builder /app/src /app/src
 USER node
 EXPOSE 8080
 
-CMD [ "yarn", "start" ]
+CMD [ "npm", "start" ]

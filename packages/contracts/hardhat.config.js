@@ -33,7 +33,7 @@ const NamedAccounts = {
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: {
-    version: "0.8.10",
+    version: "0.8.21",
     settings: {
       optimizer: {
         enabled: true,

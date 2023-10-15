@@ -280,8 +280,8 @@ importers:
         specifier: ^10
         version: 10.4.14(postcss@8.4.27)
       daisyui:
-        specifier: 3.1.0
-        version: 3.1.0(postcss@8.4.27)
+        specifier: 3.5.1
+        version: 3.5.1
       eslint:
         specifier: ^8
         version: 8.50.0
@@ -376,6 +376,12 @@ importers:
       chai:
         specifier: ^4.2.0
         version: 4.2.0
+      ds-test:
+        specifier: https://github.com/dapphub/ds-test.git#e282159d5170298eb2455a6c05280ab5a73a4ef0
+        version: github.com/dapphub/ds-test/e282159d5170298eb2455a6c05280ab5a73a4ef0
+      forge-std:
+        specifier: https://github.com/foundry-rs/forge-std.git#74cfb77e308dd188d2f58864aaf44963ae6b88b1
+        version: github.com/foundry-rs/forge-std/74cfb77e308dd188d2f58864aaf44963ae6b88b1
       hardhat:
         specifier: 2.17.1
         version: 2.17.1(ts-node@8.0.0)(typescript@5.2.2)
@@ -388,6 +394,12 @@ importers:
       hardhat-gas-reporter:
         specifier: ^1.0.8
         version: 1.0.8(hardhat@2.17.1)
+      prettier:
+        specifier: ^2.6.2
+        version: 2.8.8
+      prettier-plugin-solidity:
+        specifier: ^1.0.0-beta.19
+        version: 1.1.3(prettier@2.8.8)
       solhint:
         specifier: ^3.3.7
         version: 3.3.7
@@ -6125,6 +6137,7 @@ packages:
   /amdefine@1.0.1:
     resolution: {integrity: sha512-S2Hw0TtNkMJhIabBwIojKL9YHO5T0n5eNqWJ7Lrlel/zDbftQpxpapi8tZs3X1HWa+u+QeydGmzzNU0m09+Rcg==}
     engines: {node: '>=0.4.2'}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -7825,21 +7838,6 @@ packages:
       es5-ext: 0.10.62
       type: 1.2.0
     dev: false
-
-  /daisyui@3.1.0(postcss@8.4.27):
-    resolution: {integrity: sha512-G4dz/bRZVvlhQ/FtezXSg0rXOXzDJ0PcnMqeLSwCYNWXxf46fNJ8LWeV5qwsYOdJbXiXoZLnwyy+BsNoWZ+Bjg==}
-    engines: {node: '>=16.9.0'}
-    peerDependencies:
-      postcss: ^8
-    dependencies:
-      colord: 2.9.3
-      css-selector-tokenizer: 0.8.0
-      postcss: 8.4.27
-      postcss-js: 4.0.1(postcss@8.4.27)
-      tailwindcss: 3.3.3
-    transitivePeerDependencies:
-      - ts-node
-    dev: true
 
   /daisyui@3.5.1:
     resolution: {integrity: sha512-7GG+9QXnr2qQMCqnyFU8TxpaOYJigXiEtmzoivmiiZZHvxqIwYdaMAkgivqTVxEgy3Hot3m1suzZjmt1zUrvmA==}
@@ -17270,3 +17268,15 @@ packages:
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
+
+  github.com/dapphub/ds-test/e282159d5170298eb2455a6c05280ab5a73a4ef0:
+    resolution: {tarball: https://codeload.github.com/dapphub/ds-test/tar.gz/e282159d5170298eb2455a6c05280ab5a73a4ef0}
+    name: ds-test
+    version: 1.0.0
+    dev: true
+
+  github.com/foundry-rs/forge-std/74cfb77e308dd188d2f58864aaf44963ae6b88b1:
+    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/74cfb77e308dd188d2f58864aaf44963ae6b88b1}
+    name: forge-std
+    version: 1.6.0
+    dev: true
